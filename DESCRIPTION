@@ -1,0 +1,18 @@
+Package: rediska
+Type: Package
+Title: rediska (http://github.com/kirillseva/rediska)
+Description: A simple redis client for R.
+Version: 0.1.0
+Author: Kirill Sevastyanenko <kirillseva@gmail.com>
+Maintainer: Kirill Sevastyanenko <kirillseva@gmail.com>
+Authors@R: c(person("Kirill", "Sevastyanenko",
+    email = "kirillseva@gmail.com", role = c("aut", "cre")))
+Depends:
+    R (>= 3.0.1)
+License: MIT
+LazyData: true
+Suggests:
+    knitr,
+    microbenchmark,
+    testthat
+Roxygen: list(wrap = FALSE)
