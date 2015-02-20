@@ -4,7 +4,7 @@
 \name{rediska}
 \alias{rediska}
 \title{An environment that contains methods for reading from / writing to redis}
-\format{\preformatted{<environment: 0x7fd2eb88e5b8> 
+\format{\preformatted{<environment: 0x7f9d11114cd0> 
 }}
 \usage{
 rediska$ping()
