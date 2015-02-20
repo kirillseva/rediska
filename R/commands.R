@@ -1,14 +1,20 @@
-#' Execute raw redis command
+#' An environment that contains methods for reading from / writing to redis
+#'
+#' You can see the list of all available functions by executing \code{rediska:::command_names}.
+#'
+#' @usage
+#' rediska$ping()
+#' rediska$set("foo", "bar")
+#' rediska$set(c("bar", "baz"))
+#' rediska$get("foo")
+#'
+#' # You can also use
+#' rediska$raw_command("SET foo bar")
 #'
 #' @export
-#' @param command character. The command string that sould be executed
-#' @return The response from redis-cli
-#' @examples
-#' \dontrun{
-#'   rediska:::raw_command("PING")
-#'   # [1] "PONG"
-#' }
-raw_command <- function(command) {
+rediska <- new.env()
+
+rediska$raw_command <- function(command) {
   command_string <- paste("redis-cli", command)
   system(command_string, intern = TRUE)
 }
@@ -28,27 +34,15 @@ command_names <- unique(c(
 ))
 
 generate_functions <- function() {
-  ll <- length(command_names)
-  for(i in 1:ll) {
-    fName <- command_names[i]
-    assign(fName, eval(substitute(
+  for(i in 1:length(command_names)) {
+    assign(command_names[i], eval(substitute(
       function(...) {
-        raw_command(paste(tt, paste(..., collapse = " ")))
+        rediska$raw_command(paste(tt, paste(..., collapse = " ")))
       },
       list(tt=command_names[i])
-     )), envir=parent.frame()
+     )), envir=rediska
     )
   }
-}
-
-# Do not call this function unless you know what you are doing
-hacky_documentation <- function() {
-  namespace = "NAMESPACE"
-  write("\n# PLEASE DON'T REPEAT THIS AT HOME", namespace, append = TRUE)
-  for(name in command_names) {
-    write(paste0("export(", name, ")"), namespace, append = TRUE)
-  }
-  write("\n# I DON'T KNOW WHAT I'M DOING", namespace, append = TRUE)
 }
 
 generate_functions()
