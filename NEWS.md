@@ -1,3 +1,4 @@
 # Version 0.1.0
 
-  * The initial creation of the package. 
+  * The initial creation of the package.
+  * Sneaky task callback stuff
